@@ -17,10 +17,10 @@
             table{
 
                 width: 100%;
-                height: 500px;
+                height: 40px;
             }
             .cont{
-                padding: 50px;
+
                 width: 90vw;
                 height: 99vh;
                 margin: auto;
@@ -39,6 +39,11 @@
             a{
                 font-size: 13px;
             }
+            span{
+                color: red;
+                font-size: 15px;
+                font-weight: bold;
+            }
         </style>
     </head>
     <body>
@@ -56,11 +61,9 @@
         <hr>
         <form action="<?php $_SERVER['PHP_SELF'] ?>" method="POST">
 
-
-            <input style="margin-left: 10%;" type="text"  name="country" value="<?php echo (isset($_REQUEST['country']) ? $_REQUEST['country'] : null); ?>"/>
-            <span><?php echo ($aErrores["country"] != null ? $aErrores['country'] : null); ?></span>
-
-            <input type="submit" class="w3-btn w3-teal" name="submitbtn" value="Buscar"/>
+            <input style="margin-left: 10%;" type="text" placeholder="Buscar un Universidad"  name="country" value="<?php echo (isset($_REQUEST['country']) ? $_REQUEST['country'] : null); ?>"/>
+            <input type="submit"  class="w3-btn w3-teal" name="submitbtn" value="Buscar"/><br>
+            <span style="margin-left: 10%;"><?php echo ($aErrores["country"] != null ? $aErrores['country'] : null); ?></span>
 
         </form>
 
@@ -68,26 +71,31 @@
         <h1 id="srt"></h1>
         <div class="cont">
             <h5>API Universidades : (<a href="" target="_blank"> Aqui esta el Api de Universidades</a>)</h5> <br>
+            <?php
+            $apiRest = $_SESSION['apiRest'];
+            if (!is_null($apiRest) && !($aErrores["country"])) {
+                ?>
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Country</th>
+                        <th>Website</th>
+                        <th>Code</th>
+                    </tr>
 
-            <table>
-                <tr>
-                    <th>Name</th>
-                    <th>Country</th>
-                    <th>Website</th>
-                    <th>Code</th>
-                </tr>
+                    <?php
+                    foreach ($apiRest as $value) {
+                        ?>
+                        <tr>
+                            <td><?php echo $value['name']; ?></td>
+                            <td><?php echo $value['country']; ?></td>
+                            <td><?php echo $value['web_pages'][0]; ?></td>
+                            <td><?php echo $value['alpha_two_code']; ?></td>
 
-                <?php
-             
-               foreach ($api as $value) {
-                    ?>
-               <tr>
-                        <td><?php echo $value['name']; ?></td>
-                        <td><?php echo $value['country']; ?></td>
-                        <td><?php echo $value['web_pages'][0]; ?></td>
-                        <td><?php echo $value['alpha_two_code']; ?></td>
-
-                        <?php
+                            <?php
+                        }
+                    } else {
+                        echo '<h2>No hay Datos de lo que has escrito</h2>';
                     }
                     ?>
             </table>
