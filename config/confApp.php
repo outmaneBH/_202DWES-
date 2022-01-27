@@ -30,6 +30,7 @@ require_once "model/Usuario.php";
 require_once "model/UsuarioPDO.php";
 require_once "model/DBPDO.php";
 require_once "model/Rest.php";
+require_once "model/universidadREST.php";
 
 /* Añadir controladores en Array */
 $controllers = [

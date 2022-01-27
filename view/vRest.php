@@ -28,26 +28,33 @@
             .cont{
                 margin-bottom: 100px;
             }
-            h5{
-                font-weight: bold;
-                font-family: cursive;
-                text-decoration: underline blue 3px;
-            }
+
             tr td:nth-of-type(4){
                 font-weight: bold;
             }
             a{
                 font-size: 13px;
+                font-weight: bold;
+                font-family: cursive;
             }
-            span{
+            #sp2{
                 color: red;
                 font-size: 15px;
                 font-weight: bold;
+                margin-left: 10%;
+            }
+            #sp1{
+                margin-left: 10%; 
+                font-style: italic;
+            }
+            h3{
+                position: relative;
+                text-align: center;
+                line-height: 300px;
             }
         </style>
     </head>
     <body>
-
         <div class="w3-bar w3-black  ">
             <p style="padding: 10px;font-size: 18px;font-weight: bold;font-family: cursive;" class="w3-center ">Last Web Application MVC POO</p>
         </div>
@@ -59,47 +66,50 @@
             <p style="padding: 2px;font-size: 18px;font-weight: bold;color: white;font-family: cursive;" class="w3-center ">Uso de REST </p>
         </div>
         <hr>
-        <form action="<?php $_SERVER['PHP_SELF'] ?>" method="POST">
-
-            <input style="margin-left: 10%;" type="text" placeholder="Buscar un Universidad"  name="country" value="<?php echo (isset($_REQUEST['country']) ? $_REQUEST['country'] : null); ?>"/>
-            <input type="submit"  class="w3-btn w3-teal" name="submitbtn" value="Buscar"/><br>
-            <span style="margin-left: 10%;"><?php echo ($aErrores["country"] != null ? $aErrores['country'] : null); ?></span>
-
+        <form id="form2"action="<?php $_SERVER['PHP_SELF'] ?>" method="POST">
+            <input style="margin-left: 10%;" type="text" placeholder="Buscar un Universidad"  name="country" value="<?php echo isset($_REQUEST['country']) ? $_REQUEST['country'] : null; ?>"/>
+            <input type="submit" style="padding: 4px;" class="w3-btn w3-teal" name="submitbtn" value="Buscar"/><br>
+            <span id="sp2" ><?php echo ($aErrores["country"] != null ? $aErrores['country'] : null); ?></span><br>
+            <span id="sp1">Por ejemplo ( Spain , Morocco , Canada , France ...)</span><br><br>
         </form>
-
         <hr>
         <h1 id="srt"></h1>
         <div class="cont">
-            <h5>API Universidades : (<a href="" target="_blank"> Aqui esta el Api de Universidades</a>)</h5> <br>
+              
             <?php
-            $apiRest = $_SESSION['apiRest'];
-            if (!is_null($apiRest) && !($aErrores["country"])) {
-                ?>
-                <table>
-                    <tr>
-                        <th>Name</th>
-                        <th>Country</th>
-                        <th>Website</th>
-                        <th>Code</th>
-                    </tr>
-
-                    <?php
-                    foreach ($apiRest as $value) {
-                        ?>
+           
+            if (isset($_SESSION['apisRest'])) {
+                $apiRest = $_SESSION['apisRest'];
+                if ($apiRest != null && !($aErrores["country"])) {
+                    ?>
+            <a href="http://universities.hipolabs.com/search?country=spain" target="_blank"> Aqui esta el Api de Universidades</a> <br> 
+                    <table>
                         <tr>
-                            <td><?php echo $value['name']; ?></td>
-                            <td><?php echo $value['country']; ?></td>
-                            <td><?php echo $value['web_pages'][0]; ?></td>
-                            <td><?php echo $value['alpha_two_code']; ?></td>
+                            <th>Name</th>
+                            <th>Country</th>
+                            <th>Website</th>
+                            <th>Code</th> 
+                            <th>State_province</th> 
+                        </tr>
 
-                            <?php
+                        <?php
+                        foreach ($apiRest as $value) {
+                            ?>
+                            <tr>
+                                <td><?php echo $value->getName(); ?></td>
+                                <td><?php echo $value->getCountry();; ?></td>
+                                <td> <a href="<?php echo $value->getWebsite();; ?>" target="_blank"><?php echo $value->getWebsite();; ?></a></td>
+                                <td><?php echo $value->getCode(); ?></td>
+                                <td><?php echo $value->getState_province(); ?></td>
+                                <?php
+                            }
+                        } else {
+                            echo '<h2>No hay Datos !!</h2>';
                         }
                     } else {
-                        echo '<h2>No hay Datos de lo que has escrito</h2>';
+                        echo '<h3>Busca con un país las Universidades para ver los Datos. </h3>';
                     }
                     ?>
             </table>
         </div>
-        <div style="height:900px;"></div>
-
-
+        <div style="height:200px;"></div>

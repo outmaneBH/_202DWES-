@@ -4,7 +4,11 @@
 define("USER","User202DWESProyectoTema5" );
 define("PASSWORD","paso" );*/
 //Entorno de casa
-define("HOST","mysql:host=192.168.3.102;dbname=DB202DWESProyectoTema5" );
+/*define("HOST","mysql:host=192.168.3.102;dbname=DB202DWESProyectoTema5" );
+define("USER","User202DWESProyectoTema5" );
+define("PASSWORD","paso" );*/
+
+define("HOST","mysql:host=localhost;dbname=DB202DWESProyectoTema5" );
 define("USER","User202DWESProyectoTema5" );
 define("PASSWORD","paso" );
 
