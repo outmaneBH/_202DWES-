@@ -14,10 +14,10 @@ class REST {
 //        $this->code = $code;
 //    }
 
-    function Buscaruniversidad() {
+    function Buscaruniversidad($country) {
         
-        //http://universities.hipolabs.com/search?country=$country$country
-        $jsonFile = file_get_contents("./api/universities.json");
+        //http://universities.hipolabs.com/search?country=$country
+        $jsonFile = file_get_contents("http://universities.hipolabs.com/search?country=$country");
         $products = json_decode($jsonFile, true);   
         return  $products;
     }
