@@ -67,7 +67,7 @@
         </div>
         <hr>
         <form id="form2"action="<?php $_SERVER['PHP_SELF'] ?>" method="POST">
-            <input style="margin-left: 10%;" type="text" placeholder="Buscar un Universidad"  name="country" value="<?php echo (isset($_REQUEST['country']) ? $_REQUEST['country'] : null); ?>"/>
+            <input style="margin-left: 10%;" type="text" placeholder="Buscar un Universidad"  name="country" value="<?php echo isset($_REQUEST['country']) ? $_REQUEST['country'] : null; ?>"/>
             <input type="submit" style="padding: 4px;" class="w3-btn w3-teal" name="submitbtn" value="Buscar"/><br>
             <span id="sp2" ><?php echo ($aErrores["country"] != null ? $aErrores['country'] : null); ?></span><br>
             <span id="sp1">Por ejemplo ( Spain , Morocco , Canada , France ...)</span><br><br>
@@ -75,19 +75,20 @@
         <hr>
         <h1 id="srt"></h1>
         <div class="cont">
-            <a href="http://universities.hipolabs.com/search?country=spain" target="_blank"> Aqui esta el Api de Universidades</a> <br>   
-            <?php
-            if (isset($_SESSION['apisRest'])) {
-                $apiRest = $_SESSION['apisRest'];
 
+            <?php
+            if (isset($aRespuestas)) {
+                $apiRest = $aRespuestas;
                 if ($apiRest != null && !($aErrores["country"])) {
                     ?>
+                    <a href="http://universities.hipolabs.com/search?country=spain" target="_blank"> Aqui esta el Api de Universidades</a> <br> 
                     <table>
                         <tr>
                             <th>Name</th>
                             <th>Country</th>
                             <th>Website</th>
-                            <th>Code</th>            
+                            <th>Code</th> 
+                            <th>State_province</th> 
                         </tr>
 
                         <?php
@@ -95,10 +96,10 @@
                             ?>
                             <tr>
                                 <td><?php echo $value['name']; ?></td>
-                                <td><?php echo $value['country']; ?></td>
-                                <td> <a href="<?php echo $value['web_pages'][0]; ?>" target="_blank"><?php echo $value['web_pages'][0]; ?></a></td>
-                                <td><?php echo $value['alpha_two_code']; ?></td>
-
+                                <td><?php echo $value['country'] ?></td>
+                                <td> <a href="<?php echo $value['website'] ?>" target="_blank"><?php echo $value['website'] ?></a></td>
+                                <td><?php echo $value['code'] ?></td>
+                                <td><?php echo $value['state_profince'] ?></td>
                                 <?php
                             }
                         } else {
@@ -111,5 +112,3 @@
             </table>
         </div>
         <div style="height:200px;"></div>
-
-

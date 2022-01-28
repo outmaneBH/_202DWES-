@@ -2,13 +2,14 @@
 
 /**
  * @author OUTMANE BOUHOU
- * @since 2/01/2022
+ * @since 20/01/2022
  * @version 1.0
  * 
  * Controlador del Api rest.
  * Requiere la vista del Api rest.
  */
 /* Si el usuario ha pulsado en registrar cambiamos la vista y devolver la pagina de registrar */
+
 if (isset($_REQUEST['cancel'])) {
     unset($_SESSION['apisRest']);
     $_SESSION['paginaEnCurso'] = 'inicioPrivado';
@@ -22,12 +23,7 @@ $entradaOK = true;
 $aErrores = [
     "country" => null];
 
-/* Array de respuestas inicializado a null */
-$aRespuestas = ["country" => null
-];
-
-
- 
+$aRespuestas = [];
 /* comprobar si ha pulsado el button enviar */
 if (isset($_REQUEST['submitbtn'])) {
     //Para cada campo del formulario: Validamos la entrada y actuar en consecuencia
@@ -36,6 +32,7 @@ if (isset($_REQUEST['submitbtn'])) {
     $aErrores["country"] = validacionFormularios::comprobarAlfabetico($_REQUEST['country'], 1000, 2, OBLIGATORIO);
     
    
+
 
     //recorrer el array de errores
     foreach ($aErrores as $nombreCampo => $value) {
@@ -52,13 +49,19 @@ if (isset($_REQUEST['submitbtn'])) {
 }
 if ($entradaOK) {
     //Tratamiento del formulario - Tratamiento de datos OK
-   $api = REST::Buscaruniversidad($_REQUEST['country']);
+    $api = REST::Buscaruniversidad($_REQUEST['country']);
     $_SESSION['apisRest'] = $api;
-    /* LLevamos el usuario a la pagina de inicio */
-
-    header('Location: index.php');
-} else {
-
-    require_once $views['layout'];
 }
+$i=0;
+foreach ($_SESSION['apisRest'] as $value) {
+    $aRespuestas[$i]['name'] = $value->getName();
+    $aRespuestas[$i]['country'] = $value->getCountry();
+    $aRespuestas[$i]['website'] = $value->getWebsite();
+    $aRespuestas[$i]['code'] = $value->getCode();
+    $aRespuestas[$i]['state_profince'] = $value->getState_province();
+    $i++;
+}
+
+
+require_once $views['layout'];
 ?>

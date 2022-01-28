@@ -8,7 +8,7 @@ require_once $views[$_SESSION['paginaEnCurso']];
         <!-- Section: Social media -->
         <section class="mb-3">
             <!-- Github -->
-            <a class="btn btn-outline-light btn-floating m-1" href="https://github.com/outmaneBH/202DWESLoginLogoutMulticapaPOO" target="_blank" role="button">
+            <a class="btn btn-outline-light btn-floating m-1" href="https://github.com/outmaneBH/202DWESAplicacionFinalMulticapaPOO/tree/developer202" target="_blank" role="button">
                 <img id="git" style="width: 30px;height:30px; " src="webroot/media/git.png" alt="github"/>  
             </a>
         </section>
@@ -19,7 +19,7 @@ require_once $views[$_SESSION['paginaEnCurso']];
         Copyrights © 2021 
         <a class="text-white" href="../index.html">OUTMANE BOUHOU</a>
         . All rights reserved.
-         <p>Ultima actualizacion : 27 / 01 / 2022 version 2 ( v.2 LoginLogout MultiCapa POO )</p>
+         <p>Ultima actualizacion : 28 / 01 / 2022 version 2 ( v.2 LoginLogout MultiCapa POO )</p>
     </div>
     <!-- Copyright -->
 </footer>

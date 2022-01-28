@@ -1,27 +1,26 @@
 <?php
 
-class REST {
+class REST  {
 
-//    private $name;
-//    private $country;
-//    private $website;
-//    private $code;
-//
-//    function __construct($name, $country, $website, $code) {
-//        $this->name = $name;
-//        $this->country = $country;
-//        $this->website = $website;
-//        $this->code = $code;
-//    }
+    public static function Buscaruniversidad($country) {
+        $aUniversidad = [];
 
-    function Buscaruniversidad($country) {
-        
-        //http://universities.hipolabs.com/search?country=$country
         $jsonFile = file_get_contents("http://universities.hipolabs.com/search?country=$country");
-        $products = json_decode($jsonFile, true);   
-        return  $products;
-    }
+        $universidad = json_decode($jsonFile, true);
+        if ($universidad) {
+            foreach ($universidad as $value) {
+                array_push($aUniversidad, new universidad($value['name'],
+                                $value['country'],
+                                $value['web_pages'][0],
+                                $value['alpha_two_code'],
+                                $value['state-province']));
+            }
+        }
 
+        return $aUniversidad;
+    }
+ 
 }
+
 ?>
 
